@@ -1,0 +1,41 @@
+[INFO] Scanning for projects...
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Build Order:
+[INFO] 
+[INFO] GMT_P                                                              [pom]
+[INFO] sub_mod_2                                                          [jar]
+[INFO] 
+[INFO] ----------------------------< GMT_P:GMT_P >-----------------------------
+[INFO] Building GMT_P 1.0-SNAPSHOT                                        [1/2]
+[INFO] --------------------------------[ pom ]---------------------------------
+[INFO] 
+[INFO] --------------------------< GMT_P:sub_mod_2 >---------------------------
+[INFO] Building sub_mod_2 1.0-SNAPSHOT                                    [2/2]
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ sub_mod_2 ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory C:\Code\Lab\patcher\tests\repos\MavenProj\sub_mod_2\src\main\resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.1:compile (default-compile) @ sub_mod_2 ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 2 source files to C:\Code\Lab\patcher\tests\repos\MavenProj\sub_mod_2\target\classes
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ sub_mod_2 ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory C:\Code\Lab\patcher\tests\repos\MavenProj\sub_mod_2\src\test\resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.1:testCompile (default-testCompile) @ sub_mod_2 ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 2 source files to C:\Code\Lab\patcher\tests\repos\MavenProj\sub_mod_2\target\test-classes
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary for GMT_P 1.0-SNAPSHOT:
+[INFO] 
+[INFO] GMT_P .............................................. SUCCESS [  0.003 s]
+[INFO] sub_mod_2 .......................................... SUCCESS [  0.864 s]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  0.959 s
+[INFO] Finished at: 2019-08-07T15:46:16+03:00
+[INFO] ------------------------------------------------------------------------
