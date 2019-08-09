@@ -23,7 +23,7 @@ class TestcasePatcher(object):
 		self.commit_bug = self.gir_repo.commit(commit_bug)
 		self.module_path = module_path
 		self.generated_tests_diff = generated_tests_diff
-		self.gen_commit = self.gir_repo.commit(commit_bug) if gen_commit != None else None
+		self.gen_commit = self.gir_repo.commit(gen_commit) if gen_commit != None else None
 		self.proj_dir = os.path.join(TESTED_PROJECTS_DIR, os.path.basename(self.gir_repo.working_dir))
 		self.files_manager = ProjectFilesManager(self.proj_dir)
 
