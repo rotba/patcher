@@ -183,7 +183,7 @@ class Patch(object):
 
 
 	def get_changed_file(self, path):
-		file_sing = filter(lambda x: file_sing.path == path, self.changed_files)
+		file_sing = filter(lambda x: x.path == path, self.changed_files)
 		return file_sing[0] if len(file_sing) > 0 else None
 
 	def remove_file(self, path):
