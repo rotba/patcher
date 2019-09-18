@@ -1,11 +1,11 @@
 import os
+import re
 import shutil
 
 import git
 import mvnpy
-from mvnpy import mvn
-
 from git_cmd_wrapper import git_cmds_wrapper
+from mvnpy import mvn
 from patch_files import ChangedFile, ErroredFile, OnlyTestcasesErroredFile
 
 TESTED_PROJECTS_DIR = os.path.join(os.getcwd(), 'tested_projects')
@@ -39,7 +39,7 @@ class TestcasePatcher(object):
 		return self.patch.testcases
 
 	def get_all_unpatched(self):
-		return reduce(lambda acc,curr: self.get_unpatched(curr) + acc, self.unpatch.errored_files, [])
+		return reduce(lambda acc, curr: self.get_unpatched(curr) + acc, self.unpatch.errored_files, [])
 
 	def get_unpatched(self, file):
 		if isinstance(file, OnlyTestcasesErroredFile):
@@ -144,7 +144,16 @@ class TestcasePatcher(object):
 
 	def clean_whole_file(self, file, patch):
 		diff = patch.get_changed_file(file.path).diff
-		git_cmds_wrapper(lambda: self.gir_repo.git.execute(['git', 'apply', '-R', diff.patch_path]), self.gir_repo)
+		if self.file_is_untracked(file):
+			os.remove(file.path)
+		else:
+			git_cmds_wrapper(lambda: self.gir_repo.git.execute(['git', 'apply', '-R', diff.patch_path]), self.gir_repo)
+
+	def file_is_untracked(self, file):
+		status = self.gir_repo.git.status()
+		rel_file_path = os.path.relpath(file.path, self.gir_repo.working_dir)
+		return re.match('[\s\S]*(Untracked files:)[\s\S]*{}'.format(rel_file_path), status) or re.match(
+			'[\s\S]*(Untracked files:)[\s\S]*{}'.format(rel_file_path.replace('\\', '/')), status)
 
 	def unpatch_testcases(self, path, testcases):
 		positions_to_delete = list(map(lambda t: t.get_lines_range(), testcases))
@@ -179,8 +188,7 @@ class Patch(object):
 
 	@property
 	def testcases(self):
-		return reduce(lambda acc,curr: acc+curr.testcases, self._changed_files, [])
-
+		return reduce(lambda acc, curr: acc + curr.testcases, self._changed_files, [])
 
 	def get_changed_file(self, path):
 		file_sing = filter(lambda x: x.path == path, self.changed_files)
@@ -204,7 +212,7 @@ class Unpatch(object):
 		return self._errored_files
 
 	def add_errored_files(self, errored_files):
-		self._errored_files+=errored_files
+		self._errored_files += errored_files
 
 
 class Diff(object):
